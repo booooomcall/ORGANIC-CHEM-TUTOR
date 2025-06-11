@@ -140,4 +140,4 @@ elif menu == "🧠 Quick Quiz":
 # ------------------------ AI Naming Assistant ------------------------
 elif menu == "🤖 AI Compound Naming":
     st.header("🤖 AI Compound Naming Assistant")
-    st.image("https://upload.wikimedia.org/w
+    st.image("https://upload.wikimedia.org/wikipedia/commons/thumb/4/4c/DNA_double_helix_structure.svg/640px-DNA_double_helix_structure.svg.png", use_container_width=True)
