@@ -140,4 +140,27 @@ elif menu == "🧠 Quick Quiz":
 # ------------------------ AI Naming Assistant ------------------------
 elif menu == "🤖 AI Compound Naming":
     st.header("🤖 AI Compound Naming Assistant")
-    st.image("https://upload.wikimedia.org/wikipedia/commons/thumb/4/4c/DNA_double_helix_structure.svg/640px-DNA_double_helix_structure.svg.png", use_container_width=True)
+    st.image("https://upload.wikimedia.org/wikipedia/commons/thumb/7/70/Chemical_structure_example.svg/640px-Chemical_structure_example.svg.png", width=400)
+
+    openai.api_key = st.secrets["openai_api_key"] if "openai_api_key" in st.secrets else "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"
+
+    user_input = st.text_input("Enter a compound formula or description (e.g., CH3CH2OH, a 3-carbon alcohol):")
+
+    if user_input and openai.api_key != "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":
+        with st.spinner("Contacting AI..."):
+            try:
+                response = openai.ChatCompletion.create(
+                    model="gpt-3.5-turbo",
+                    messages=[
+                        {"role": "system", "content": "You are a chemistry expert. Respond with the IUPAC name and a short explanation."},
+                        {"role": "user", "content": f"Name this compound: {user_input}"}
+                    ],
+                    max_tokens=100
+                )
+                result = response.choices[0].message['content'].strip()
+                st.success("✅ AI Response:")
+                st.markdown(result)
+            except Exception as e:
+                st.error(f"⚠️ Error: {str(e)}")
+    elif user_input:
+        st.warning("⚠️ Please add your OpenAI API key in Streamlit secrets.")
